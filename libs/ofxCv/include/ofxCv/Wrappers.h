@@ -158,6 +158,20 @@ cv::name(xMat, yMat, resultMat);\
 		ofxCv::dilate(srcDst, srcDst, iterations, shape, size);
 	}
 
+	// MorphologyEX out of place
+	template <class S, class D>
+	void morphologyEx(S& src, D& dst, cv::InputArray kernel,int opt, int iterations = 1) {
+		imitate(dst, src);
+		cv::Mat srcMat = toCv(src), dstMat = toCv(dst);
+		cv::morphologyEx(srcMat,dstMat,opt,kernel);
+	}
+
+	// MorphologyEX in place
+	template <class SD>
+	void morphologyEx(SD& srcDst,cv::InputArray kernel,int opt, int iterations=1) {
+		ofxCv::morphologyEx(srcDst,srcDst,kernel,opt,iterations);
+	}
+
 	// automatic threshold (grayscale 8-bit only) out of place
 	template <class S, class D>
 	void autothreshold(const S& src, D& dst, bool invert = false) {
