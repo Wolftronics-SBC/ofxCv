@@ -64,8 +64,8 @@ namespace ofxCv {
 		cv::RotatedRect getMinAreaRect(unsigned int i) const;
 		cv::Point2f getMinEnclosingCircle(unsigned int i, float& radius) const;
 		cv::RotatedRect getFitEllipse(unsigned int i) const;
-        std::vector<cv::Point> getFitQuad(unsigned int i) const;
-        bool getHole(unsigned int i) const;
+		std::vector<cv::Point> getFitQuad(unsigned int i) const;
+		bool getHole(unsigned int i) const;
 		cv::Vec2f getVelocity(unsigned int i) const;
 		
 		RectTracker& getTracker();
@@ -73,8 +73,15 @@ namespace ofxCv {
 		
 		void setThreshold(float thresholdValue);
 		void setAutoThreshold(bool autoThreshold);
+
+		//for HSV color tracking modes
+		void setHueThreshold(float thresholdValue) {hueThresholdValue = thresholdValue;}
+		void setSatThreshold(float thresholdValue) {satThresholdValue = thresholdValue;}
+		void setValThreshold(float thresholdValue) {valThresholdValue = thresholdValue;}
+		//for RGB mode, standard threshold is used!
+
 		void setInvert(bool invert);
-        void setUseTargetColor(bool useTargetColor);
+		void setUseTargetColor(bool useTargetColor);
 		void setTargetColor(ofColor targetColor, TrackingColorMode trackingColorMode = TRACK_COLOR_RGB);
 		void setFindHoles(bool findHoles);
 		void setSortBySize(bool sortBySize);
@@ -92,10 +99,15 @@ namespace ofxCv {
 		
 		void draw() const;
 
-	protected:
 		cv::Mat hsvBuffer, thresh;
+
+	protected:
 		bool autoThreshold, invert, simplify;
 		float thresholdValue;
+		
+		float hueThresholdValue = 20;
+		float satThresholdValue = 20;
+		float valThresholdValue = 20;
 		
 		bool useTargetColor;
 		TrackingColorMode trackingColorMode;
@@ -108,11 +120,11 @@ namespace ofxCv {
 		std::vector<ofPolyline> polylines;
 		
 		RectTracker tracker;
-        std::vector<cv::Rect> boundingRects;
-        std::vector<bool> holes;
-
+		std::vector<cv::Rect> boundingRects;
+		std::vector<bool> holes;
+		
 		int contourFindingMode;
 		bool sortBySize;
-	};	
+	};
 	
 }
