@@ -40,7 +40,7 @@ void ofApp::draw() {
 		ofSetColor(255);
 		movie.draw(0, 0);
 		contourFinder.draw();
-		for(int i = 0; i < contourFinder.size(); i++) {
+		for(int i = 0; i < (int)contourFinder.size(); i++) {
 			ofPoint center = toOf(contourFinder.getCenter(i));
 			ofPushMatrix();
 			ofTranslate(center.x, center.y);
@@ -53,7 +53,7 @@ void ofApp::draw() {
 			ofPopMatrix();
 		}
 	} else {
-		for(int i = 0; i < contourFinder.size(); i++) {
+		for(int i = 0; i < (int)contourFinder.size(); i++) {
 			unsigned int label = contourFinder.getLabel(i);
 			// only draw a line if this is not a new label
 			if(tracker.existsPrevious(label)) {
@@ -77,22 +77,22 @@ void ofApp::draw() {
 	const vector<unsigned int>& newLabels = tracker.getNewLabels();
 	const vector<unsigned int>& deadLabels = tracker.getDeadLabels();
 	ofSetColor(cyanPrint);
-	for(int i = 0; i < currentLabels.size(); i++) {
+	for(int i = 0; i < (int)currentLabels.size(); i++) {
 		int j = currentLabels[i];
 		ofDrawLine(j, 0, j, 4);
 	}
 	ofSetColor(magentaPrint);
-	for(int i = 0; i < previousLabels.size(); i++) {
+	for(int i = 0; i < (int)previousLabels.size(); i++) {
 		int j = previousLabels[i];
 		ofDrawLine(j, 4, j, 8);
 	}
 	ofSetColor(yellowPrint);
-	for(int i = 0; i < newLabels.size(); i++) {
+	for(int i = 0; i < (int)newLabels.size(); i++) {
 		int j = newLabels[i];
 		ofDrawLine(j, 8, j, 12);
 	}
 	ofSetColor(ofColor::white);
-	for(int i = 0; i < deadLabels.size(); i++) {
+	for(int i = 0; i < (int)deadLabels.size(); i++) {
 		int j = deadLabels[i];
 		ofDrawLine(j, 12, j, 16);
 	}

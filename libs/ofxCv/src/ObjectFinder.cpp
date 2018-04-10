@@ -55,7 +55,7 @@ namespace ofxCv {
                                     minSize,
                                     maxSize);
 		for(int i = 0; i < objects.size(); i++) {
-            cv::Rect& rect = objects[i];
+			cv::Rect& rect = objects[i];
 			rect.width /= rescale, rect.height /= rescale;
 			rect.x /= rescale, rect.y /= rescale;
 		}
@@ -82,7 +82,7 @@ namespace ofxCv {
 	void ObjectFinder::draw() const {
 		ofPushStyle();
 		ofNoFill();
-		for(int i = 0; i < size(); i++) {
+		for(unsigned int i = 0; i < size(); i++) {
 			ofRectangle object = getObject(i);
 			ofDrawRectangle(object);
 			ofDrawBitmapStringHighlight(ofToString(getLabel(i)), object.x, object.y);

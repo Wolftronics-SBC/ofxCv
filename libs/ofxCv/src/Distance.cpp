@@ -17,7 +17,7 @@ namespace ofxCv {
 	
 	const std::string& mostRepresentative(const std::vector<std::string>& strs) {
 		int bestScore;
-		int besti;
+		int besti = 0;
 		int n = strs.size();
 		for(int i = 0; i < n; i++) {
 			int curScore = 0;

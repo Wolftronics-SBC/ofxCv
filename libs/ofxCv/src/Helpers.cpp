@@ -54,7 +54,7 @@ namespace ofxCv {
 	}
 	
 	int findFirst(const Mat& arr, unsigned char target) {
-		for(int i = 0; i < arr.rows; i++) {
+		for(unsigned int i = 0; i < arr.rows; i++) {
 			if(arr.at<unsigned char>(i) == target) {
 				return i;
 			}
@@ -63,7 +63,7 @@ namespace ofxCv {
 	}
 	
 	int findLast(const Mat& arr, unsigned char target) {
-		for(int i = arr.rows - 1; i >= 0; i--) {
+		for(unsigned int i = arr.rows - 1; i >= 0; i--) {
 			if(arr.at<unsigned char>(i) == target) {
 				return i;
 			}
@@ -76,10 +76,10 @@ namespace ofxCv {
 		glm::vec2 start, end;
 		float weights = 0;
 		for(int i = 0; i < lines.size(); i++) {
-            start = glm::vec2(lines[i][0], lines[i][1]);
+			start = glm::vec2(lines[i][0], lines[i][1]);
 			end = glm::vec2(lines[i][2], lines[i][3]);
 			glm::vec2 diff = end - start;
-            float length = glm::length(diff);
+			float length = glm::length(diff);
 			float weight = length * length;
 			float angle = atan2f(diff.y, diff.x);
 			angleSum += angle * weight;
@@ -88,7 +88,7 @@ namespace ofxCv {
 		return angleSum / weights;
 	}
 	
-    std::vector<cv::Point2f> getConvexPolygon(const std::vector<cv::Point2f>& convexHull, int targetPoints) {
+		std::vector<cv::Point2f> getConvexPolygon(const std::vector<cv::Point2f>& convexHull, int targetPoints) {
 		std::vector<cv::Point2f> result = convexHull;
 		
 		static const unsigned int maxIterations = 16;
@@ -99,7 +99,7 @@ namespace ofxCv {
 		
 		// unbounded binary search to simplify the convex hull until it's targetPoints
 		if(result.size() > targetPoints) {
-			for(int i = 0; i < maxIterations; i++) {
+			for(unsigned int i = 0; i < maxIterations; i++) {
 				approxPolyDP(Mat(convexHull), result, curEpsilon, true);
 				if(result.size() == targetPoints) {
 					break;

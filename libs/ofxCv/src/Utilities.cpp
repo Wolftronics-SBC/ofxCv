@@ -19,9 +19,9 @@ namespace ofxCv {
 		return mat;
 	}
 
-    Mat toCv(const Mat& mat) {
-        return mat.clone();
-    }
+	Mat toCv(const Mat& mat) {
+		return mat.clone();
+	}
 
 	Point2f toCv(glm::vec2 vec) {
 		return Point2f(vec.x, vec.y);
@@ -40,10 +40,10 @@ namespace ofxCv {
 		return Mat(1, vertices.size(), CV_32FC3, &vertices[0]);
 	}
 	
-    std::vector<cv::Point2f> toCv(const ofPolyline& polyline) {
+	std::vector<cv::Point2f> toCv(const ofPolyline& polyline) {
 		// if polyline.getVertices() were const, this could wrap toCv(vec<vec2f>)
 		std::vector<cv::Point2f> contour(polyline.size());
-		for(int i = 0; i < polyline.size(); i++) {
+		for(unsigned int i = 0; i < polyline.size(); i++) {
 			contour[i].x = polyline[i].x;
 			contour[i].y = polyline[i].y;
 		}
@@ -61,12 +61,12 @@ namespace ofxCv {
 	
 	std::vector<cv::Point3f> toCv(const std::vector<glm::vec3>& points) {
 		std::vector<cv::Point3f> out(points.size());
-		for(int i = 0; i < points.size(); i++) {
+		for(unsigned int i = 0; i < points.size(); i++) {
 			out[i].x = points[i].x;
 			out[i].y = points[i].y;
 			out[i].z = points[i].z;
 		}
-		return out;		
+		return out;
 	}
 	
 	Scalar toCv(ofColor color) {
