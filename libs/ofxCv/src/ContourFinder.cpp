@@ -33,7 +33,7 @@ namespace ofxCv {
 		resetMaxArea();
 	}
 	
-	void ContourFinder::findContours(cv::Mat img) {
+	void ContourFinder::findContours(cv::Mat img, int numErode, int numDilate, bool erodeFirst) {
 		// threshold the image using a tracked color or just binary grayscale
 		if(useTargetColor) {
 			cv::Scalar offset(thresholdValue, thresholdValue, thresholdValue);
@@ -59,8 +59,13 @@ namespace ofxCv {
 				inRange(hsvBuffer, lowerb, upperb, thresh);
 			}
 		} else {
-            copyGray(img, thresh);
+			copyGray(img, thresh);
 		}
+
+		if(erodeFirst) if(numErode > 0) ofxCv::erode(thresh, thresh, numErode);
+		if(numDilate > 0) ofxCv::dilate(thresh, thresh, numDilate);
+		if(!erodeFirst) if(numErode > 0) ofxCv::erode(thresh, thresh, numErode);
+
 		if(autoThreshold) {
 			threshold(thresh, thresholdValue, invert);
 		}
