@@ -123,14 +123,21 @@ namespace ofxCv {
 			prevPyramid = pyramid;
 			pyramid.clear();
 #else
-			calcOpticalFlowPyrLK(prev,
-                                 next,
-                                 prevPts,
-                                 nextPts,
-                                 status,
-                                 err,
-                                 cv::Size(windowSize, windowSize),
-                                 maxLevel);
+			try{
+				if(prevPts.size()){
+				calcOpticalFlowPyrLK(prev,
+									 next,
+									 prevPts,
+									 nextPts,
+									 status,
+									 err,
+									 cv::Size(windowSize, windowSize),
+									 maxLevel,
+									 TermCriteria(TermCriteria::COUNT+TermCriteria::EPS, 30, 0.01),
+									 OPTFLOW_LK_GET_MIN_EIGENVALS
+									 );
+				}
+			}catch(...){}
 #endif
 			status.resize(nextPts.size(),0);
 		}else{
@@ -165,16 +172,18 @@ namespace ofxCv {
 		calcFeaturesNextFrame = false;
 	}
 	
-    std::vector<glm::vec3> FlowPyrLK::getFeatures(){
+	std::vector<glm::vec3> FlowPyrLK::getFeatures(){
 		ofPolyline poly = toOf(prevPts);
 		return poly.getVertices();
 	}
 	
 	std::vector<glm::vec2> FlowPyrLK::getCurrent(){
 		std::vector<glm::vec2> ret;
-        for(std::size_t i = 0; i < nextPts.size(); i++) {
-			if(status[i]){
-                ret.push_back(toOf(nextPts[i]));
+		if(status.size()){
+			for(std::size_t i = 0; i < nextPts.size(); i++) {
+				if(status[i]){
+					ret.push_back(toOf(nextPts[i]));
+				}
 			}
 		}
 		return ret;
