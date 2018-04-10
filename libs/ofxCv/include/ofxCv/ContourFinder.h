@@ -100,6 +100,7 @@ namespace ofxCv {
 		void draw() const;
 
 		cv::Mat hsvBuffer, thresh;
+		cv::Mat srcCopy;
 
 	protected:
 		bool autoThreshold, invert, simplify;

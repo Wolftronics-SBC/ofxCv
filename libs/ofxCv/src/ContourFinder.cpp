@@ -80,7 +80,7 @@ namespace ofxCv {
 		bool needMaxFilter = maxAreaNorm ? (maxArea < 1) : (maxArea < std::numeric_limits<float>::infinity());
 		std::vector<size_t> allIndices;
 		std::vector<double> allAreas;
-        std::vector<bool> allHoles;
+		std::vector<bool> allHoles;
 		if(needMinFilter || needMaxFilter) {
 			double imgArea = img.rows * img.cols;
 			double imgMinArea = minAreaNorm ? (minArea * imgArea) : minArea;

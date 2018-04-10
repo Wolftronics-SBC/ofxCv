@@ -130,30 +130,32 @@ cv::name(xMat, yMat, resultMat);\
 
 	// erode out of place
 	template <class S, class D>
-	void erode(S& src, D& dst, int iterations = 1) {
+	void erode(S& src, D& dst, int iterations, int shape, int size = 3) {
 		imitate(dst, src);
 		cv::Mat srcMat = toCv(src), dstMat = toCv(dst);
-		cv::erode(srcMat, dstMat, cv::Mat(), cv::Point(-1, -1), iterations);
+		cv::Mat kernel = cv::getStructuringElement(shape, cv::Size(size, size));
+		cv::erode(srcMat, dstMat, kernel, cv::Point(-1, -1), iterations);
 	}
 
 	// erode in place
 	template <class SD>
-	void erode(SD& srcDst, int iterations = 1) {
-		ofxCv::erode(srcDst, srcDst, iterations);
+	void erode(SD& srcDst, int iterations, int shape, int size = 3) {
+		ofxCv::erode(srcDst, srcDst, iterations, shape, size);
 	}
 
 	// dilate out of place
 	template <class S, class D>
-	void dilate(const S& src, D& dst, int iterations = 1) {
+	void dilate(const S& src, D& dst, int iterations, int shape, int size = 3) {
 		imitate(dst, src);
 		cv::Mat srcMat = toCv(src), dstMat = toCv(dst);
-		cv::dilate(srcMat, dstMat, cv::Mat(), cv::Point(-1, -1), iterations);
+		cv::Mat kernel = cv::getStructuringElement(shape, cv::Size(size, size));
+		cv::dilate(srcMat, dstMat, kernel, cv::Point(-1, -1), iterations);
 	}
 
 	// dilate in place
 	template <class SD>
-	void dilate(SD& srcDst, int iterations = 1) {
-		ofxCv::dilate(srcDst, srcDst, iterations);
+	void dilate(SD& srcDst, int iterations, int shape, int size = 3) {
+		ofxCv::dilate(srcDst, srcDst, iterations, shape, size);
 	}
 
 	// automatic threshold (grayscale 8-bit only) out of place
