@@ -46,7 +46,16 @@ namespace ofxCv {
 		setIdentity(KF.measurementNoiseCov, Scalar::all(rapidness));
 		setIdentity(KF.errorCovPost, Scalar::all(.1));
 	}
-	
+
+	template <class T>
+	void KalmanPosition_<T>::initialvals(T x, T y, T z) {
+		Mat_<T> initialvals = Mat_<T>::zeros(9, 1);
+		initialvals(0) = x;
+		initialvals(1) = y;
+		initialvals(2) = z;
+		KF.statePost = initialvals;
+	}
+
 	template <class T>
 	void KalmanPosition_<T>::update(const glm::vec3& p) {
 		// First predict, to update the internal statePre variable

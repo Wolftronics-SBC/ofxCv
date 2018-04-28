@@ -14,6 +14,7 @@ namespace ofxCv {
 		// smoothness, rapidness: smaller is more smooth/rapid
 		// bUseAccel: set true to smooth out velocity
 		void init(T smoothness = 0.1, T rapidness = 0.1, bool bUseAccel = false);
+		void initialvals(T x, T y, T z);
 		void update(const glm::vec3&);
 		glm::vec3 getPrediction();
 		glm::vec3 getEstimation();
